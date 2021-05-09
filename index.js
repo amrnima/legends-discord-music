@@ -1,10 +1,6 @@
-console.log('run this app')
 const Discord = require('discord.js');
 const prefix = process.env.prefix;
-const token = process.env.token
-console.log('prefix : ', prefix);
-console.log('token : ', token);
-
+const token = process.env.token;
 const client = new Discord.Client();
 const fs = require('fs');
 const cooldowns = new Map()
