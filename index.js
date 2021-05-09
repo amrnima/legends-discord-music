@@ -1,5 +1,7 @@
 const Discord = require('discord.js');
 const { token, prefix } = require('./config.json');
+console.log('token :', token);
+
 const client = new Discord.Client();
 const fs = require('fs');
 const cooldowns = new Map()
@@ -50,5 +52,4 @@ client.on('message', async (message) => {
         await message.reply('there was an error trying to execute that command!');
     }
 });
-
 client.login(token);
