@@ -92,7 +92,7 @@ const video_player = async (guild, song, Discord, sq, msg) => {
         })
     const exampleEmbed = new Discord.MessageEmbed()
         .setColor('#0099ff')
-        .setTitle('Legend music (best server in discord)')
+        .setTitle('Legends music (Legends is best server in discord)')
         .setURL('https://legends.fg1.ir/')
         .setDescription(song.description)
         .setThumbnail(song.thumbnail)
