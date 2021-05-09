@@ -68,9 +68,9 @@ module.exports = {
                 return message.channel.send(`${song.description} added in queue`);
             }
         }
-        else if (cmd === 'lgstop') {
+        else if (cmd === 'lgstop' || cmd === 'lgs') {
             video_stop(message, server_queue);
-        } else if (cmd === 'lgskip') {
+        } else if (cmd === 'lgskip' || cmd === 'lgsk') {
             video_skip(message, server_queue);
         }
 
