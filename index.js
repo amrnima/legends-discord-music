@@ -1,6 +1,9 @@
+console.log('run this app')
 const Discord = require('discord.js');
-const { token, prefix } = require('./config.json');
-console.log('token :', token);
+const prefix = process.env.prefix;
+const token = process.env.token
+console.log('prefix : ', prefix);
+console.log('token : ', token);
 
 const client = new Discord.Client();
 const fs = require('fs');
