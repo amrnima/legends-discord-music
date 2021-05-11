@@ -14,9 +14,7 @@ module.exports = {
         if (!permissions.has('CONNECT')) return message.channel.send('WARNING : YOU DONT HAVE THE CORRECT PERMISSION');
         if (!permissions.has('SPEAK')) return message.channel.send('WARNING : YOU DONT HAVE THE CORRECT PERMISSION');
         const server_queue = queue.get(message.guild.id);
-        console.log('cmd :', cmd);
-        console.log('cmd :', process.env.prefix);
-        if (cmd === process.env.prefix) {
+        if (cmd === 'lg') {
             if (!args.length)  return message.channel.send(`You have to send name music after commend ex: ${cmd} eminem my self`)
             let song = {};
             if (ytdl.validateURL(args[0])) {
