@@ -1,6 +1,8 @@
 const Discord = require('discord.js');
-const prefix = process.env.prefix;
-const token = process.env.token
+const prefix = '$lg';
+// const prefix = process.env.prefix;
+const token = 'ODE3Njk0OTQyMzYwMjQwMTQ5.YENPwg.oqDwzniag-VEzF2K5E0gz-qfCiw';
+// const token = process.env.token;
 
 const client = new Discord.Client();
 const fs = require('fs');
@@ -13,18 +15,16 @@ for (const file of commandFiles) {
 }
 client.on('ready', () => {
     console.log('have fun together in Legends server');
-    client.user.setActivity(`${prefix}help`);
+    client.user.setActivity(`for run this bot you have to us first of statement ${process.env.prefix}`);
 });
 client.on('warn' , info => info);
 client.on('error', console.error);
-
 client.on('message', async (message) => {
     if (!message.content.startsWith(prefix) || message.author.bot) return;
     const args = message.content.slice(prefix.length).trim().split(/ +/);
     const cmd = args.shift().toLowerCase();
     const command = client.commands.get(cmd) ||
         client.commands.find(a => a.aliases || a.aliases.includes(cmd))
-
 
     if (command.cooldown) {
         if (!cooldowns.has(command.name)) {
