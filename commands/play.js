@@ -80,7 +80,8 @@ module.exports = {
 
 const video_player = async (guild, song, Discord, sq, msg) => {
     const song_queue = queue.get(guild.id);
-    if (!song && index !== 3) {
+    console.log('index :', index);
+    if (!song && index > 3) {
         song_queue.voice_channel.leave();
         queue.delete(guild.id);
         return;
@@ -103,7 +104,9 @@ const video_player = async (guild, song, Discord, sq, msg) => {
             { name: 'music time', value: song.timestamp, inline: true},
             { name: 'views', value: song.views, inline: true });
     await song_queue.text_channel.send({embed: exampleEmbed});
-    index++;
+    setTimeout(() => {
+        index++;
+    }, 15000)
 }
 const video_skip = async (message, server_queue) => {
     if (!message.member.voice.channel) return message.channel.send('You need to be in a channel to execute this commend');
