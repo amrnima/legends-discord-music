@@ -46,7 +46,7 @@ client.on('message', async (message) => {
     }
 
     try {
-        await command.execute(message, args, client, cmd, Discord);
+        await command.execute(message, args, client, cmd, Discord, false);
     } catch (error) {
         console.error(error);
         await message.reply('there was an error trying to execute that command!');

@@ -6,7 +6,12 @@ module.exports = {
     aliases: ['skip', 'stop', 's', 'sk'],
     cooldown: 0,
     description: 'Information about the arguments provided.',
-    execute: async function (message, args, client, cmd, Discord) {
+    execute: async function (message, args, client, cmd, Discord, disconnect) {
+        console.log('message.guild.id :', message.guild.id);
+        if(disconnect && message.guild.id) {
+            queue.delete(message.guild.id);
+            return;
+        }
         const voice_channel = message.member.voice.channel;
         if (!voice_channel) return message.channel.send('WARNING : YOU HAVE TO FIRST JOIN A CHANNEL TO EXECUTE THIS COMMEND')
         const permissions = voice_channel.permissionsFor(message.client.user);
@@ -80,10 +85,8 @@ module.exports = {
 const video_player = async (guild, song, Discord, sq, msg) => {
     const song_queue = queue.get(guild.id);
     if (!song) {
-       setTimeout(() => {
-           song_queue.voice_channel.leave();
-           queue.delete(guild.id);
-       },10000);
+        song_queue.voice_channel.leave();
+        queue.delete(guild.id);
        return;
     }
     const stream = ytdl(song.url, {filter: 'audioonly'});
