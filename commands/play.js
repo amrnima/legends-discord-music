@@ -59,6 +59,7 @@ module.exports = {
                     queue_contractor.connection = connection;
                     video_player(message.guild, queue_contractor.songs[0], Discord, server_queue, message);
                 } catch (err) {
+                    console.log('run this')
                     queue.delete(message.guild.id);
                     message.channel.send('There was a error connection');
                     throw err
