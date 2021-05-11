@@ -1,7 +1,6 @@
 const ytdl = require('ytdl-core');
 const ytSearch = require('yt-search');
 const queue = new Map();
-let index = 0;
 module.exports = {
     name: 'play',
     aliases: ['skip', 'stop', 's', 'sk'],
@@ -80,35 +79,31 @@ module.exports = {
 
 const video_player = async (guild, song, Discord, sq, msg) => {
     const song_queue = queue.get(guild.id);
-    console.log('index :', index);
-    if (!song && index > 3) {
-        song_queue.voice_channel.leave();
-        queue.delete(guild.id);
-    } else if (song) {
-        index = 0;
-        const stream = ytdl(song.url, {filter: 'audioonly'});
-        song_queue.connection.play(stream, {seek: 0, volume: 0.5})
-            .on('finish', () => {
-                song_queue.songs.shift()
-                video_player(guild, song_queue.songs[0], Discord, sq, msg);
-            })
-        const exampleEmbed = new Discord.MessageEmbed()
-            .setColor('#0099ff')
-            .setTitle('Legends music (Legends is best server in discord)')
-            .setURL('https://legends.fg1.ir/')
-            .setDescription(song.description)
-            .setThumbnail(song.thumbnail)
-            .setImage(song.image)
-            .setTimestamp(song.timestamp)
-            .addFields(
-                { name: 'music time', value: song.timestamp, inline: true},
-                { name: 'views', value: song.views, inline: true });
-        await song_queue.text_channel.send({embed: exampleEmbed});
+    if (!song) {
+       setTimeout(() => {
+           song_queue.voice_channel.leave();
+           queue.delete(guild.id);
+       },10000);
+       return;
     }
-    setTimeout(() => {
-        index++;
-        video_player(guild, song_queue.songs[0], Discord, sq, msg);
-    }, 1000)
+    const stream = ytdl(song.url, {filter: 'audioonly'});
+    song_queue.connection.play(stream, {seek: 0, volume: 0.5})
+        .on('finish', () => {
+            song_queue.songs.shift()
+            video_player(guild, song_queue.songs[0], Discord, sq, msg);
+        })
+    const exampleEmbed = new Discord.MessageEmbed()
+        .setColor('#0099ff')
+        .setTitle('Legends music (Legends is best server in discord)')
+        .setURL('https://legends.fg1.ir/')
+        .setDescription(song.description)
+        .setThumbnail(song.thumbnail)
+        .setImage(song.image)
+        .setTimestamp(song.timestamp)
+        .addFields(
+            { name: 'music time', value: song.timestamp, inline: true},
+            { name: 'views', value: song.views, inline: true });
+    await song_queue.text_channel.send({embed: exampleEmbed});
 }
 const video_skip = async (message, server_queue) => {
     if (!message.member.voice.channel) return message.channel.send('You need to be in a channel to execute this commend');
