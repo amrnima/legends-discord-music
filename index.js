@@ -1,8 +1,8 @@
 const Discord = require('discord.js');
-const prefix = '$lg';
-// const prefix = process.env.prefix;
-const token = 'ODE3Njk0OTQyMzYwMjQwMTQ5.YENPwg.oqDwzniag-VEzF2K5E0gz-qfCiw';
-// const token = process.env.token;
+// const prefix = '$lg';
+const prefix = process.env.prefix;
+// const token = 'ODE3Njk0OTQyMzYwMjQwMTQ5.YENPwg.oqDwzniag-VEzF2K5E0gz-qfCiw';
+const token = process.env.token;
 
 const client = new Discord.Client();
 const fs = require('fs');
