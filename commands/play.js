@@ -82,17 +82,17 @@ module.exports = {
 const video_player = async (guild, song, Discord, sq, msg) => {
     const song_queue = queue.get(guild.id);
     if (!song) {
-        song_queue.voice_channel.leave();
-        queue.delete(guild.id);
-        return;
+        setTimeout(() => {
+            song_queue.voice_channel.leave();
+            queue.delete(guild.id);
+            return;
+        }, 60000)
     }
     const stream = ytdl(song.url, {filter: 'audioonly'});
     song_queue.connection.play(stream, {seek: 0, volume: 0.5})
         .on('finish', () => {
-            setTimeout(() => {
-                song_queue.songs.shift()
-                video_player(guild, song_queue.songs[0], Discord, sq, msg);
-            }, 5000)
+            song_queue.songs.shift()
+            video_player(guild, song_queue.songs[0], Discord, sq, msg);
         })
     const exampleEmbed = new Discord.MessageEmbed()
         .setColor('#0099ff')
